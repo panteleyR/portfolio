@@ -12,6 +12,7 @@
         </div>
       </div>
     </div>
+
     <div class="actions">
       <div @click="modalOpen = true" class="action action-plus"></div>
     </div>
