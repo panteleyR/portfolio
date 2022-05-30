@@ -1,0 +1,24 @@
+articles_index:
+    path: /api/articles
+    methods: GET
+    controller: App\Core\Infrastructure\Rest\Article\ReadAllArticleAction::list
+
+articles_store:
+    path: /api/articles
+    methods: POST
+    controller: App\Core\Infrastructure\Rest\Article\CreateArticleAction
+
+articles_show:
+    path: /api/articles/{id}
+    methods: GET
+    controller: App\Core\Infrastructure\Rest\Article\ReadArticleAction
+
+articles_edit:
+    path: /api/articles/{id}
+    methods: PATCH
+    controller: App\Core\Infrastructure\Rest\Article\UpdateArticleAction
+
+articles_destroy:
+    path: /api/articles/{id}
+    methods: DELETE
+    controller: App\Core\Infrastructure\Rest\Article\DeleteArticleAction

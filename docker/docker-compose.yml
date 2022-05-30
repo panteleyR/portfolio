@@ -1,0 +1,48 @@
+version: '3'
+services:
+  web:
+    image: nginx
+    restart: always
+    working_dir: /code
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+    - ./images/web/conf.d:/etc/nginx/conf.d
+    - ./images/web/logs:/var/logs/nginx
+    - ../api:/code
+    depends_on:
+      - app
+      - api
+  app:
+    build: ./images/app
+    volumes:
+    - ../app:/code
+  api:
+    build: ./images/api
+    working_dir: /code
+    volumes:
+      - ../api:/code
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+    ports:
+      - 3306:3306
+    volumes:
+      - my-db-portfolio:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
+volumes:
+  my-db-portfolio:
